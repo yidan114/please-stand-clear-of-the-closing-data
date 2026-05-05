@@ -1,0 +1,12 @@
+data/raw/
+data/processed/*.csv
+*.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+output/brief/*.tex
+output/brief/*.log
+output/brief/*.aux
