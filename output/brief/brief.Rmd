@@ -1,0 +1,74 @@
+---
+title: "Service Quality and Transit Equity in the NYC Subway System"
+subtitle: "A line-level analysis of Customer Journey Time Performance, 2015--2026"
+author: "Yidan Kong"
+date: "May 2026"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: true
+    toc: false
+fontsize: 11pt
+geometry: margin=1in
+linkcolor: blue
+header-includes:
+  - \usepackage{setspace}
+  - \onehalfspacing
+  - \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.pos = "H",
+  out.width = "85%"
+)
+```
+
+# Executive Summary {-}
+
+<!-- TODO -->
+
+# Background and Motivation
+
+<!-- TODO -->
+
+# Data and Method
+
+<!-- TODO -->
+
+# Findings
+
+## Cross-line differences are systematic, not noise
+
+<!-- TODO -->
+
+## The pandemic dip that wasn't
+
+<!-- TODO -->
+
+## Off-peak service quality is a frequency problem
+
+<!-- TODO -->
+
+## Service quality does not track neighborhood income
+
+<!-- TODO -->
+
+## CBTC investment is associated with persistent service gains
+
+<!-- TODO -->
+
+# Implications for Transit Equity Policy
+
+<!-- TODO -->
+
+# Limitations
+
+<!-- TODO -->
+
+\vfill
+\noindent\textit{Replication materials, including data, code, and figures, are available at} \url{https://github.com/yidan114/please-stand-clear-of-the-closing-data}.
