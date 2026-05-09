@@ -84,11 +84,31 @@ The implication is that off-peak service quality is set by scheduling decisions,
 
 ## Service quality does not track neighborhood income
 
-<!-- TODO -->
+A standard transit-equity question asks whether subway lines that serve lower-income neighborhoods provide worse service. To test this directly, we paired each line with its transit-commuter--weighted service-area median household income. The result is a null finding. The Pearson correlation between line-level mean peak CJTP and service-area median income is 0.13. A naive OLS regression gives the same result: coefficient = 0.010 per \$10,000, $p = 0.18$. Service quality, by this measure, does not move with neighborhood income.
+
+The geography behind the null is informative. The lowest-income service areas in the system belong to outer-borough working-class corridors: the D (\$87k), JZ (\$92k), 7 (\$93k), and B (\$95k). The highest-income areas belong to Manhattan-anchored or Brooklyn-trunk lines: the N (\$129k), W (\$126k), Q (\$125k), and R (\$123k). These two groups do not differ systematically in CJTP. Some low-income lines (the 7 in particular) outperform high-income ones; some high-income lines (the Q, R, and N during much of the panel) underperform low-income ones. The line-by-line scatter shows no organizing slope.
+
+The most informative cases are the lines that income fails to explain. The 7 train serves a service area near \$93k yet sits in the top quartile of CJTP, with peak values around 0.91 in recent years. The L train serves a \$111k area and posts peak CJTP near 0.92. Both run on Communications-Based Train Control, a major signaling upgrade examined in \S3.5. The B and the D, by contrast, sit at the low end of CJTP regardless of how their service-area income compares with the rest of the system. Whatever explains line-level service quality, it is not income.
+
+```{r fig4, fig.cap="Line-level mean peak Customer Journey Time Performance, 2022--2026, plotted against service-area median household income (ACS 2018--2022, weighted by commuter volume within an 800-meter walking buffer of each line's stations). The fitted line is OLS; its slope is not statistically distinguishable from zero. CBTC lines (the 7 and L) are highlighted as positive residuals.", out.width="85%"}
+knitr::include_graphics("../figures/04_income_vs_cjtp_wip.png")
+```
+
+The null result does not weaken the equity question; it sharpens it. In this panel, income is not the axis along which service quality is organized. The line-level variation documented in \S3.1 is real, persistent, and consequential for riders, but it is organized by something other than the demographic composition of the surrounding tracts. \S3.5 takes up what that something might be.
 
 ## CBTC investment is associated with persistent service gains
 
-<!-- TODO -->
+Communications-Based Train Control (CBTC) replaces the subway\'s century-old fixed-block signaling with a system that tracks each train\'s position continuously and allows trains to operate closer together at higher reliability. The MTA has completed CBTC on two lines in the panel window: the L (operational by February 2012, before the panel begins) and the 7 (completed in November 2018). The lines that have it run differently from the lines that don\'t.
+
+A two-way fixed-effects panel regression, with line and month effects and standard errors clustered at the line level, estimates that CJTP on a CBTC-active line is 3.0 percentage points higher than on a non-CBTC line in the same month (p = 0.017; 95\% CI: 0.6 to 5.5 percentage points). The estimate is sizable in the context of a metric whose line-level standard deviation is roughly 4 percentage points.
+
+The event-study version of the same regression complicates the causal reading without overturning the descriptive one. Pre-period coefficients (24 to 1 month before activation) fluctuate between $+6.9$ and $-2.4$ percentage points, drifting rather than holding flat. With only the 7 train providing within-panel CBTC variation --- the L was already CBTC-active at the start of the data --- pre-trends are identified off a single line, and the parallel-trends assumption that licenses a strict causal interpretation cannot be defended here. Post-activation coefficients remain positive, generally in the $+5$ to $+7$ percentage-point range, and the treated line appears less volatile month to month.
+
+```{r fig5, fig.cap="Event study of Customer Journey Time Performance around CBTC activation. Each point is a coefficient from a two-way fixed-effects regression with line and month effects; vertical bars show 95\\% confidence intervals from line-clustered standard errors. The L train (activated February 2012) and the 7 train (activated November 2018) are the treated lines; only the 7 provides within-panel identification.", out.width="85%"}
+knitr::include_graphics("../figures/05_event_study_wip.png")
+```
+
+Two things follow. First, CBTC lines do not just sit at a higher CJTP level --- they sit there with an apparent reduction in month-to-month variance, which is the rider-relevant attribute that capacity-only metrics miss. Second, this analysis cannot rule out that some other line-specific change coincided with CBTC activation, particularly on the 7. With only two treated lines and one providing identification, single-line confounders (a supervisor, a fleet upgrade, a track program) are observationally indistinguishable from the signaling system itself. The descriptive claim --- CBTC lines run measurably better and more consistently than non-CBTC lines --- is well supported. The mechanistic claim --- that signaling specifically caused the gain --- requires more lines, more variation, or both. The MTA\'s planned CBTC expansion on additional corridors will provide more variation for future evaluation. Until then, the existing two-line evidence points to investment history as a more plausible equity mechanism than neighborhood income alone.
 
 # Implications for Transit Equity Policy
 
