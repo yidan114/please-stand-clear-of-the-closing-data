@@ -54,9 +54,19 @@ knitr::include_graphics("../figures/01_cjtp_heatmap_wip.png")
 
 The horizontal banding --- solid colors holding across columns --- shows that service quality is organized by line, not just by time.
 
-## The pandemic dip that wasn't
+## The pandemic shock moved the metric, not just the service
 
-<!-- TODO -->
+The spring 2020 lockdown did not produce a simple deterioration in measured subway service quality. Systemwide CJTP dipped in April 2020, then rebounded in May and June to levels above the immediate pre-lockdown months. This is not a recovery story. It is a denominator story.
+
+The explanation lies in how the metric is built, not in a sudden improvement in operations. CJTP is a ratio: customer journeys completed within five minutes of schedule, divided by total customer journeys measured. When ridership collapsed and the MTA thinned the schedule in parallel, both the denominator and the operating environment changed. Trains that did run were less crowded, dwelled less at stations, and met a sparser schedule that was easier to keep. Apparent service improvement can therefore reflect the metric responding to the shock, not the system performing better for everyday riders.
+
+The pattern was uneven across lines. The 7 train shows it most starkly: peak-period CJTP reached 0.96 in May 2020, well above its 2019 baseline near 0.89. Other lines moved less, and the L train, often discussed alongside the 7 because both run on Communications-Based Train Control, did not show the same lockdown spike. Whatever happened in April--May 2020 was not a uniform systemwide improvement; it varied sharply by line and period.
+
+```{r fig2, fig.cap="Customer Journey Time Performance by line, January 2015 -- March 2026. The spring 2020 lockdown is shaded. Selected lines are highlighted: the 1 (red), B (orange), 7 (purple), and L (gray). The aggregate pattern shows an April 2020 dip followed by a May--June rebound; among the highlighted lines, the 7 shows the clearest May 2020 spike.", out.width="85%"}
+knitr::include_graphics("../figures/02_cjtp_timeseries_wip.png")
+```
+
+The 2020 episode is a useful caution: ratio-based service metrics can move in counterintuitive directions when the underlying flows are disrupted. For that reason, the analysis that follows emphasizes line-level persistence and within-line changes rather than aggregate movement alone.
 
 ## Off-peak service quality is a frequency problem
 
