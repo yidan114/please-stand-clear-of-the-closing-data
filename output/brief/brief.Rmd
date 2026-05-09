@@ -70,7 +70,17 @@ The 2020 episode is a useful caution: ratio-based service metrics can move in co
 
 ## Off-peak service quality is a frequency problem
 
-<!-- TODO -->
+Off-peak hours are often imagined as the subway's calmer state: fewer riders, less crowding, fewer dwell-time delays. By the CJTP measure, they are not. Across the 21 lines studied, peak-period CJTP is systematically higher than off-peak CJTP, by an average of 2 to 5 percentage points. The penalty is largest on long outer-borough lines: the F, A, and E each lose roughly 5 percentage points moving from peak to off-peak service.
+
+The mechanism is not crowding. Off-peak trains are emptier and faster between stops. The mechanism is headway. Off-peak schedules are thinner --- trains run every 12 to 20 minutes rather than every 4 to 6 --- so a single missed train, a single signal hold, or a single dispatching delay translates into a wait long enough to push the journey past the five-minute on-time threshold. CJTP is, in this sense, sensitive to schedule density: when service is sparse, small operational frictions become large rider-experienced delays.
+
+Two lines make the headway interpretation visible from the other direction. The G train is the clearest reversal, with off-peak CJTP about 1 percentage point higher than peak. The 6 is essentially flat, with almost no off-peak penalty. Both are short, self-contained lines that do not depend on the Manhattan trunk for connections, and both maintain relatively dense off-peak headways. When off-peak service is not thinned, the off-peak penalty disappears.
+
+```{r fig3, fig.cap="Peak versus off-peak Customer Journey Time Performance by line, panel-period mean. Each row shows one line; the gap between the two markers is the off-peak penalty. Long outer-borough lines (F, A, E) show the largest penalties; the G train reverses the pattern and the 6 train shows essentially no penalty.", out.width="85%"}
+knitr::include_graphics("../figures/03_offpeak_penalty_wip.png")
+```
+
+The implication is that off-peak service quality is set by scheduling decisions, not by ridership demand. Lines that lose the most quality off-peak are the lines whose off-peak schedules have been thinned most aggressively. This raises a distributional question taken up in \S4: which riders rely on off-peak service, and which lines make off-peak travel costly?
 
 ## Service quality does not track neighborhood income
 
