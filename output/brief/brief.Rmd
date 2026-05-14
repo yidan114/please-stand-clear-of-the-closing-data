@@ -30,15 +30,29 @@ knitr::opts_chunk$set(
 
 # Executive Summary {-}
 
-<!-- TODO -->
+Transit equity analysis typically asks whether subway service is worse in neighborhoods with lower-income or more transit-dependent residents. This brief asks the same question of New York\'s subway over an eleven-year monthly panel (2015--2026), using the MTA\'s Customer Journey Time Performance metric and an 800-meter walking-buffer demographic match. Line-level service quality varies substantially and persistently --- the 1 train remains consistently above the B train across the panel --- but this variation does not track service-area median household income (Pearson $r = 0.13$).
+
+Service quality is more clearly organized by capital investment history. The two lines that have received Communications-Based Train Control upgrades run measurably better and more consistently than non-CBTC lines, a descriptively robust association that should not be read as a strict causal estimate. The brief argues that transit equity in New York is better understood through investment and operational decisions, including signaling upgrades and off-peak frequency, than through surrounding demographics alone.
 
 # Background and Motivation
 
-<!-- TODO -->
+The New York City subway carries approximately 3.4 million riders a day and remains the principal rail transit system for mobility across the five boroughs. Whether the system delivers comparable service quality to different parts of the city is therefore a question of distributional consequence --- not just for transit policy, but for housing access, labor-market participation, and time poverty among workers without alternatives. This is the question that transit equity research has tried to make tractable.
+
+The standard approach pairs service-quality outcomes with neighborhood demographics: are lines that serve lower-income, higher--transit-dependency, or majority-minority communities measurably worse along some dimension of service? Work in environmental justice and transit equity has applied this framework to bus reliability, subway breakdown rates, station accessibility, and stop spacing, often asking whether burdens fall disproportionately on lower-income communities and communities of color. The framework is intuitive, accessible to non-specialist audiences, and aligned with how city agencies define their own equity obligations.
+
+This brief takes the same starting question --- whether subway service quality is distributed equitably across New York --- but does so at the line level, over an eleven-year monthly panel, using the MTA\'s own customer-experience metric (CJTP) rather than train-centric measures like on-time arrival. Two features of this setup change what the analysis can say. First, the long panel exposes structure that single-cross-section studies miss: which lines are persistently good, which are persistently weak, which actually shift over time. Second, the customer-journey framing measures what riders experience --- a journey that completes within five minutes of when they were told it would --- rather than what trains do at the platform level.
+
+The findings that follow document substantial and persistent line-level differences in service quality, but they also complicate the standard equity reading. Service quality, in this panel, is not organized by the income composition of the surrounding neighborhoods. It is organized by something else, and identifying what that something is --- and what it implies for how equity-oriented investment should be allocated --- is the central question taken up in the rest of the brief.
 
 # Data and Method
 
-<!-- TODO -->
+The analysis combines three data sources. Service-quality data come from the MTA\'s Customer Journey-Focused Metrics (CJM) table on the New York State Open Data portal, which reports monthly Customer Journey Time Performance (CJTP) and related measures by subway line and time-of-day period from January 2015 through March 2026. CJTP is the share of customer journeys completed within five minutes of scheduled time, estimated by linking fare-payment records with train movement data. The panel covers 21 main lines (excluding the 42nd Street Shuttle), each observed monthly under both peak and off-peak service, yielding 5,624 line-period-month rows.
+
+Demographic data come from the American Community Survey 5-year estimates for 2018--2022, accessed through the Census API. The relevant tract-level variables are median household income (B19013) and means of transportation to work (B08301), which is used to construct transit-commuter weights. Census tracts in the five New York City counties (Bronx, Kings, New York, Queens, Richmond) are included where ACS income and commuting-mode estimates are available; income is reported in 2018--2022 nominal dollars without further inflation adjustment.
+
+To connect line-level service quality to neighborhood demographics, we use the MTA\'s General Transit Feed Specification (GTFS) static feed to locate each station, consolidate platform-level stops by parent station, and assign each station to its lines. Around each station we draw an 800-meter walking buffer in projected coordinates (EPSG:2263, New York State Plane), dissolve buffers within a line, and intersect the result with the tract layer. Each tract that overlaps a line\'s combined service area is weighted by the overlap fraction multiplied by the tract\'s total transit commuters; the line-level demographic value is the commuter-weighted average across overlapping tracts. This weighting privileges tracts whose residents actually use transit, rather than treating every square meter of buffered area as equivalent.
+
+The regression panel is built from the CJM table by line and month, with B Division lines (B, D, F, M, and the lettered Brooklyn--Manhattan lines) appearing from 2017 onward and IRT lines (1 through 7) present for the full panel. Two-way fixed-effects estimation is implemented in `linearmodels.PanelOLS` with entity (line) and time (month) effects and standard errors clustered at the entity level. The CBTC event-study specification replaces the cbtc\_active dummy with a set of binned event-time indicators (pre-25-plus, pre-24-19, pre-18-13, pre-12-7, pre-6-1 as reference, post-0-5, post-6-11, post-12-23, post-24-47, post-48-plus); coefficients are interpreted relative to the omitted pre-6-1 window. The two CBTC activation dates used are February 2012 for the L and November 2018 for the 7. All analysis is implemented in Python (pandas, geopandas, linearmodels, matplotlib); replication code is available at the repository linked at the end of this brief.
 
 # Findings
 
@@ -112,11 +126,29 @@ Two things follow. First, CBTC lines do not just sit at a higher CJTP level --- 
 
 # Implications for Transit Equity Policy
 
-<!-- TODO -->
+The findings carry three implications for how transit equity is operationalized in New York.
+
+First, line-level service quality varies systematically across the system, and the variation is not noise. The cross-line gap documented in \S3.1 --- eleven years in which the 1 train and the B train never overlap on CJTP --- is large enough to materially affect a rider\'s commute and persistent enough to be a feature of the system rather than a transient condition. Any equity diagnostic that aggregates service across lines, or that treats month-to-month variation as the relevant unit of analysis, will miss the structure that riders actually experience.
+
+Second, the income-based equity diagnostic returns a null in this panel. Service quality does not track service-area median household income (\S3.4), and the lines that most clearly outperform what their income would predict are not random: they are the lines that have received signaling investment (\S3.5). The takeaway is not that income is irrelevant to transit equity. It is that line-level service quality in New York is more clearly organized by capital investment history than by the demographic composition of surrounding neighborhoods. An equity audit that examines only demographic correlates risks missing the mechanism through which inequality is reproduced --- or ameliorated --- in actual service delivery.
+
+Third, off-peak service quality (\S3.3) is a distributional question that the standard peak-focused service framework does not surface. Off-peak headways are scheduling decisions, and the lines that suffer most when off-peak service is thinned are not the lines whose riders have the most alternatives. Asking who relies on off-peak service, and on which lines, is a tractable next step that the data in this brief do not directly answer but plainly invite.
+
+Taken together, these implications reframe rather than abandon the transit equity question. The distributional concern is real; the appropriate axis along which to evaluate it is investment history and operational decisions, not surrounding demographics alone. For an agency setting capital priorities or evaluating service plans, this means treating the CBTC rollout schedule, the off-peak frequency table, and the next-line investment decision as equity-relevant choices --- not because they target specific communities, but because they shape which lines deliver consistent service to the riders who depend on them.
 
 # Limitations
 
-<!-- TODO -->
+Several limitations qualify the findings in this brief.
+
+The CBTC analysis identifies its effect off a single line. Only the 7 train transitions into CBTC during the panel window; the L is already treated at the start of the data. As discussed in \S3.5, this means single-line confounders --- a maintenance program, a fleet replacement, a supervisory change --- cannot be separated from the signaling system itself. The estimated post-activation lift is descriptively well supported but is not a credible point estimate of the causal effect of CBTC specifically. The MTA\'s planned CBTC expansion will eventually permit stronger identification.
+
+Service-area demographics are constructed from ACS 2018--2022 5-year estimates and treated as static throughout the eleven-year panel. Neighborhood composition along several subway corridors has shifted meaningfully over the panel window, particularly in parts of Brooklyn and Queens. The income figures used in \S3.4 are therefore best understood as a recent snapshot rather than as the demographic conditions under which the full 2015--2026 service record was produced.
+
+The 800-meter walking buffer used to assign tracts to lines is a reasonable but imperfect proxy for who a line serves. Riders do not in fact arrive only on foot; many transfer from buses, drive to park-and-rides, or walk longer distances. A more refined service-area definition would incorporate access mode and travel-time isochrones rather than a single distance threshold.
+
+CJTP is rider-centric but not all-encompassing. It captures schedule adherence but does not directly measure crowding, comfort, safety, accessibility for riders with disabilities, or the availability of service late at night. A line that performs well on CJTP can still be deficient on dimensions that matter for equity. The findings here therefore characterize one component of service quality, not the totality of it.
+
+Finally, the brief examines service quality but not its upstream determinants. Why some lines have received signaling investment while others have not, why off-peak schedules are thinned on particular corridors, and how capital decisions are made at MTA are political-economic questions that the data here can describe the consequences of but not explain. A complete equity analysis would integrate this descriptive evidence with the institutional history of capital prioritization, which is beyond the scope of a brief of this length.
 
 \vfill
 \noindent\textit{Replication materials, including data, code, and figures, are available at} \url{https://github.com/yidan114/please-stand-clear-of-the-closing-data}.
