@@ -30,6 +30,15 @@ The RMarkdown source: [`output/brief/brief.Rmd`](output/brief/brief.Rmd)
 - MTA GTFS static feed, used to map stations to lines and lines to service areas
 
 ## Repo layout
+
+```
+code/             notebooks and scripts, numbered by stage
+data/raw/         downloaded as-is, gitignored
+data/processed/   tidy panels, gitignored
+output/figures/   pdf + png exports embedded in the brief
+output/brief/     .Rmd source and compiled PDF
+```
+
 ## Author
 
 Yidan Kong, QMSS, Columbia University.
