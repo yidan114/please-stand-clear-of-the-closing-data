@@ -1,0 +1,5 @@
+== CBTC activation (two-way FE, line-clustered SE) ==
+   cbtc_active coef = +0.0300  (+3.0 pp)   p = 0.017
+
+== Service quality vs service-area income (2022+, per line) ==
+   Pearson r = 0.127   (n = 21 lines)
