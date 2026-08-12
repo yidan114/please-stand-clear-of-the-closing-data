@@ -1,4 +1,5 @@
-data/raw/
+data/raw/*
+!data/raw/acs_2022.csv
 data/processed/*.csv
 *.Rproj.user
 .Rhistory
@@ -10,3 +11,5 @@ __pycache__/
 output/brief/*.tex
 output/brief/*.log
 output/brief/*.aux
+data/processed/*.duckdb
+data/processed/*.parquet
